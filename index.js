@@ -1,22 +1,25 @@
 const Discord = require("discord.js");
 const bot = new Discord.Client();
+require("dotenv-flow").config();
 
-const token = "NjM5MTk0NzgwNjk3NDkzNTA5.Xb3lvg.Uevlg_U_G6tk-bSJMHrjlT6IfbM";
-
-const PREFIX = "!";
+const config = {
+    token: process.env.token,
+    owner: process.env.owner,
+    prefix: process.env.prefix
+}
 
 bot.on("ready", () =>{
     console.log("This bot is online!");
 })
 
-bot.on("message", message=>{
+bot.on("message", message => {
     if(message.content === "Tere"){
         message.reply("Jää vait");
     }
 })
 
-bot.on("message", message=>{
-    let args = message.content.substring(PREFIX.length).split(" ");
+bot.on("message", message => {
+    let args = message.content.substring(config.prefix.length).split(" ");
 
     switch(args[0]){
         case "ping":
@@ -41,6 +44,6 @@ bot.on("message", message=>{
     }   
 })
 
-bot.login(token);
+bot.login(config.token);
 
-document.querySelector("#content-main > div.page_content > div.list > div:nth-child(1)")
+//document.querySelector("#content-main > div.page_content > div.list > div:nth-child(1)")
