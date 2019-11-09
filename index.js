@@ -42,3 +42,5 @@ bot.on("message", message=>{
 })
 
 bot.login(token);
+
+document.querySelector("#content-main > div.page_content > div.list > div:nth-child(1)")
