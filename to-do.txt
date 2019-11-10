@@ -1,0 +1,13 @@
+Project Urmas TO-DO list 
+
+Anekdoot funktsionaalsus:
+
+- Bot võtab argumendiks "!nali" ja "kategooria"
+- Script saab kätte pistik.net-i antud kategooria nalja ja kuvab selle
+- Peale 1. kuvamist võtab järgmiseid
+
+Ilmaennustus:
+
+- Urmas saab ühendust ilmateenistusega ja töötleb infot
+- Urmas kontrollib aktiveerides või iga täistund ilmaennustust ja vastavalt kuvab seda sõnumina
+
