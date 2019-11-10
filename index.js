@@ -1,6 +1,9 @@
 const Discord = require("discord.js");
-const bot = new Discord.Client();
+const fs = require("fs");
+const client = new Discord.Client();
+const Enmap = require("enmap");
 require("dotenv-flow").config();
+client.commands = new Enmap();
 
 const config = {
     token: process.env.token,
@@ -8,42 +11,35 @@ const config = {
     prefix: process.env.prefix
 }
 
-bot.on("ready", () =>{
-    console.log("This bot is online!");
+client.on("ready", () =>{
+console.log("This bot is online!");
 })
 
-bot.on("message", message => {
-    if(message.content === "Tere"){
-        message.reply("Jää vait");
-    }
+client.on("message", message => {
+    const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
+    const command = args.shift().toLocaleLowerCase();
+    // if laused
+    if(message.content === "Tere") message.reply("Jää vait");
+    if(message.content === "Mis on elu mõte?") message.reply("Ma olen sellele pikalt mõelnud...");
+    if(message.content === "Mis on parim eriala?") message.reply("IT!")
+
+    const cmd = client.commands.get(command);
+    if (!cmd) return;
+    
+    cmd.run(client, message, args, Discord); 
 })
 
-bot.on("message", message => {
-    let args = message.content.substring(config.prefix.length).split(" ");
+fs.readdir("./commands/", async (err, files) => {
+    if (err) return console.error;
+    files.forEach(file => {
+        if (!file.endsWith(".js")) return;
+        let props = require(`./commands/${file}`);
+        let cmdName = file.split(".")[0];
+        console.log(`Loaded command "${cmdName}".`);
+        client.commands.set(cmdName, props);
+    });
+});
 
-    switch(args[0]){
-        case "ping":
-            message.channel.sendMessage("pong!");
-            break;
-        case "info":
-            message.channel.sendMessage("Mina olen põhjus, miks inimesed kardavad roboteid.")
-            break
-        case "clear":
-            if(!args[1]) return message.reply("Error. Please define second arg.")
-            message.channel.bulkDelete(args[1]);
-            break;
-        case "embed":
-            const embed = new Discord.RichEmbed()
-            .setTitle("User Information")
-            .addField("Player Name", message.author.username)
-            .addField("See vend on tegija")
-            .setColor(0xff0000)
-            .setThumbnail(message.author.avatarURL);
-            message.channel.sendEmbed(embed);
-        break;
-    }   
-})
-
-bot.login(config.token);
+client.login(config.token);
 
 //document.querySelector("#content-main > div.page_content > div.list > div:nth-child(1)")
