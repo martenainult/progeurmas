@@ -1,4 +1,4 @@
-exports.run = (client, message, args, Discord) => {
+exports.run_disc = (client, message, args, Discord) => {
     const embed = new Discord.RichEmbed()
     .setTitle("Tänane päev")
     .addField("Player Name", message.author.username)

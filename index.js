@@ -26,7 +26,8 @@ client.on("message", message => {
     const cmd = client.commands.get(command);
     if (!cmd) return;
     
-    cmd.run(client, message, args, Discord); 
+    cmd.run(client, message, args);
+    cmd.run_disc(client, message, args, Discord); 
 })
 
 fs.readdir("./commands/", async (err, files) => {
