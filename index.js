@@ -24,10 +24,9 @@ client.on("message", message => {
     if(message.content === "Mis on parim eriala?") message.reply("IT!")
 
     const cmd = client.commands.get(command);
-    if (!cmd) return;
-    
-    cmd.run(client, message, args);
-    cmd.run_disc(client, message, args, Discord); 
+        if (!cmd) return;
+    //cmd.run(client, message, args);
+    cmd.run(client, message, args, Discord); 
 })
 
 fs.readdir("./commands/", async (err, files) => {
